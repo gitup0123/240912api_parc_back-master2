@@ -1,5 +1,7 @@
+version: '3.8'  # Specify the version
+
 services:
-  
+
   # Service MySQL
   db:
     image: mysql:8.0
@@ -25,7 +27,7 @@ services:
     networks:
       - api_network
 
-  # Service Spring Boot (à partir de Dockerfile)
+  # Service Spring Boot (from Dockerfile)
   app:
     build:
       context: .
@@ -46,5 +48,9 @@ services:
       - api_network
 
 networks:
-  blog_network:
+  api_network:
     driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16  # Custom subnet
